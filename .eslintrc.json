@@ -1,0 +1,44 @@
+{
+    "env": {
+        "commonjs": true,
+        "es2020": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "globals": {
+        "_": true,
+        "config": true,
+        "checkAuth": true,
+        "listErrors": true,
+        "moment": true,
+        "validator": true,
+        "async": true,
+        "sequelize": true,
+        "models": true
+    },
+    "rules": {
+        "max-len": ["error", {
+            "code": 200
+        }],
+        "no-unused-vars": ["error", {
+            "vars": "all",
+            "varsIgnorePattern": "[_]",
+            "args": "after-used",
+            "argsIgnorePattern": "^_",
+            "caughtErrors": "none"
+        }],
+        "comma-style": ["error", "last"],
+        "comma-dangle": ["error", "only-multiline"],
+        "require-jsdoc": "off",
+        "no-param-reassign": "off",
+        "consistent-return": "off",
+        "no-shadow": "off",
+        "no-underscore-dangle": "off",
+        "global-require": "off"
+    }
+}
