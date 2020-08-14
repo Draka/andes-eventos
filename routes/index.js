@@ -11,7 +11,7 @@ module.exports = (app) => {
   });
 
   const w = _.random(10000);
-  app.get('/status', (req, res) => {
+  app.get('/', (req, res) => {
     const memory = process.memoryUsage();
     res.send({
       w,

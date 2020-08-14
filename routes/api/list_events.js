@@ -7,7 +7,10 @@ module.exports = (req, res, next) => {
       models.Event
         .findAll({
           where: { user_id: req.user.id },
-          attributes: ['id', 'event_name', 'event_category', 'event_place', 'event_address', 'event_initial_date', 'event_final_date', 'event_type', 'thumbnail']
+          attributes: ['id', 'event_name', 'event_category', 'event_place', 'event_address', 'event_initial_date', 'event_final_date', 'event_type', 'thumbnail'],
+          order: [
+            ['created_at', 'DESC'],
+          ],
         })
         .then((doc) => { cb(null, doc); }, cb);
     }]
