@@ -1,0 +1,60 @@
+header
+  .hide-xs
+    nav.navbar.primary.shadow.fixed.top
+      .container
+        a.logo(href='/') Eventos
+
+        .expand
+        ul.nologin.flex
+          li.ph-3
+            a.button.secondary(href='/registro') Registro
+          li
+            a(href='/') Iniciar Sesión
+        .login.relative
+          a.dropdown(aria-controls='menu-login')
+            span
+              i.fas.fa-user-circle.fa-fw
+              | #{' '}
+              span Hola Usuario
+            span.icon.ml-1
+              i.fas.fa-arrow-down.fa-fw
+          #menu-login.dropdown-list.right.shadow
+            ul.list-categories(role='menu')
+              li(role='menuitem')
+                a.item(href='/eventos')
+                  i.fas.fa-shopping-bag
+                  | #{' '}Eventos
+              li.hr
+              li(role='menuitem')
+                a.item(href='/cerrar-sesion')
+                  i.fas.fa-sign-out-alt
+                  | #{' '}Cerrar Sesión
+
+  .show-xs
+    nav.navbar.primary.shadow.fixed.top
+      ul.flex.w-100
+        li
+          a.sidenav-action.w-4.justify-content-center(href='#' data-target='#mobile-menu')
+            i.fas.fa-bars
+            span.out-screen Menú
+        li.expand
+          a.logo.justify-content-center(href='/') Eventos
+
+  nav#mobile-menu.sidenav
+    .sidenav-body
+      .white-500.w-100.flex.h-3
+        .w-100.title.tc.b Cuenta
+
+      ul.list.nologin(role='menu')
+        li(role='menuitem')
+          a(href='/') Iniciar Sesión
+
+      ul.list.login(role='menu')
+        li(role='menuitem')
+          a(href='/eventos')
+            i.fas.fa-shopping-bag
+            | #{' '}Eventos
+        li(role='menuitem')
+          a(href='/cerrar-sesion')
+            i.fas.fa-sign-out-alt
+            | #{' '}Cerrar Sesión

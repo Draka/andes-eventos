@@ -1,0 +1,47 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .col-xs-12
+        nav.breadcrumb.ph-3.small.uppercase
+          a.b.item(href=`/`) INICIO
+          a.b.item.nologin(href=`/`) INICIAR SESIÓN
+          a.b.item.login(href=`/`) EVENTOS
+
+  .container.nologin
+    h1 Iniciar Sesión
+    .hr.mb-5.mt-2
+    .row.justify-content-center
+      .col-xs-12.col-md-6
+        .white.br-10.rd-0-2.shadow
+          .p-3
+            .msg.error#form-results
+            .row
+              form.col-xs-12.validate-rest(id="loginForm" action=`/api/api-auth/` method="post" data-page=`/` data-error="#form-results")
+                .row
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#username(type="text" name="username" placeholder=' ' autocomplete="username" required)
+                        label(for='username') Usuario
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#password(type="password" name="password" placeholder=' ' autocomplete="current-password" required)
+                        label(for='password') Contraseña
+                .row
+                  .col-xs-12.tr
+                    button.primary.w-100-xs(type="submit") Ingresar
+          .pt-3.white-500
+            a.button.flat(href="/registro") Registrarse
+
+  .container.login
+    h1 Listado de Eventos
+    .hr.mb-5.mt-2
+    .row
+      .col-xs-12
+        a.button.primary(href='/nuevo-evento') Nuevo
+        .event-list
+
+  include ../fragments/modal.pug

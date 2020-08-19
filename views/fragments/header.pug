@@ -1,0 +1,192 @@
+mixin navbar-logo()
+  img(src=store.image alt=store.name)
+
+
+script(type='application/ld+json').
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "#{config.url.site}#{store.slug}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "#{config.url.site}#{store.slug}/buscar?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+
+.invisible
+  p #{store.name}
+  p #{store.slogan}
+  p #{config.site.name}
+
+header
+  //- mobile
+  .show-xs.mobile
+    nav.theme.fixed
+      .nav-wrapper.container.tc
+        ul
+          li
+            a.nav-link.brand-logo(href=`${config.url.site}`)
+              img(src=config.url.static+'common/images/logo.svg' alt=config.site.name)
+        ul.expand
+          li.w-100
+            form(class="search" action=`${config.url.site}${store.slug}/buscar`)
+              label.out-screen(for='query-m') #{__('Buscar')}
+              input#query-m.query.w-100(type="text" name="q" placeholder=__('Buscar') required)
+              button
+                i.fas.fa-search
+                span.out-screen #{__('Bucar productos')}
+        ul
+          li.nav-item
+            a.nav-link.link-shopping-cart(href='/carrito')
+              .num-shopping-cart
+              i.fas.fa-shopping-cart
+    nav.white.line
+      .nav-wrapper.container
+        ul
+          li.nav-item
+            div.btn-menu.btn.btn-blank.sidenav-action(data-target='#mobile-menu')
+              i.fas.fa-bars
+        ul
+          li.flex
+            a.nav-link.brand-logo(href='/'+store.slug)
+              +navbar-logo
+        ul
+          li.flex
+            a.nav-link.brand-logo(href='/'+store.slug)
+              div.not-wrap.b #{store.name}
+        ul
+          li.nav-item
+            div.btn-menu.btn.btn-blank.store-name.list-places.hide.nowrap.padding(aria-controls='menu-places-m')
+              span
+                i.fas.fa-store
+              | &nbsp;
+              span.icon
+                i.fas.fa-angle-down
+            #menu-places-m.btn-menu-list
+        if store.multiStore
+          ul
+            li.nav-item
+              div.btn.btn-blank.user-address(onclick='ca.loadMap()') [Agregue dirección de entrega]
+  //- desktop
+  .hide-xs.desktop
+    nav.theme.fixed
+      .nav-wrapper.container
+        ul
+          li
+            a.nav-link.brand-logo(href='/')
+              img(src=config.url.static+'common/images/logo.svg' alt=config.site.name)
+
+        ul.expand
+          li.w-100
+            form(class="search" action=`${config.url.site}${store.slug}/buscar`)
+              label.out-screen(for='query-d') #{__('Buscar')}
+              input#query-d.query(type="text" name="q" placeholder=__('Buscar') required)
+              button
+                i.fas.fa-search
+                span.out-screen #{__('Bucar productos')}
+
+        ul
+          li.nologin
+            a.nav-link(href='/')
+              i.fas.fa-user-circle
+              span.out-screen #{__('Iniciar Sesión')}
+          li.login
+            a.nav-link.btn-menu.padding(aria-controls='menu-user')
+              i.fas.fa-user-circle.fa-fw
+              span Hola,&nbsp;
+              span.userFirstname
+              span.icon
+                i.fas.fa-angle-down.fa-fw
+
+            #menu-user.btn-menu-list.right
+              ul.list-categories(role='menu')
+                li(role='menuitem')
+                  a(href='/perfil')
+                    i.far.fa-address-card
+                    | &nbsp;Perfil
+                li(role='menuitem')
+                  a(href='/pedidos')
+                    i.fas.fa-shopping-bag
+                    | &nbsp;Pedidos
+                li.hr
+                li(role='menuitem')
+                  a(href='/cerrar-sesion')
+                    i.fas.fa-sign-out-alt
+                    | &nbsp;Cerrar Sesión
+        ul
+          li
+            a.nav-link.link-shopping-cart(href='/carrito')
+              .num-shopping-cart
+              i.fas.fa-shopping-cart
+              span.out-screen #{__('Ver carrito')}
+    nav.white.line
+      .nav-wrapper.container
+        ul
+          li.flex
+            a.nav-link.brand-logo(href='/'+store.slug)
+              +navbar-logo
+        ul
+          li.flex
+            a.nav-link.brand-logo(href='/'+store.slug)
+              div.not-wrap.b #{store.name}
+
+        if store.multiStore
+          ul.expand
+            li.nav-item #{__('Precios de:')}
+            li.nav-item
+              div.btn.btn-blank.store-alert-add(onclick='ca.loadMap()') [Agregue dirección de entrega]
+              div.btn-menu.btn.btn-blank.store-name.list-places.hide.padding(aria-controls='menu-places')
+                span.select-place
+                | &nbsp;
+                span.icon
+                  i.fas.fa-angle-down
+              #menu-places.btn-menu-list
+            li.nav-item |
+            li.nav-item
+              i.fas.fa-map-marker-alt
+            li.nav-item #{__('Enviar a:')}
+            li.nav-item
+              div.btn.btn-blank.user-address(onclick='ca.loadMap()') [Agregue dirección de entrega]
+        else
+          ul.expand
+            li &nbsp;
+
+        ul
+          li.nav-item
+            div.btn-menu.btn.btn-blank.padding(aria-controls='menu-categories')
+              | #{__('Categorías')}&nbsp;
+              span.icon
+                i.fas.fa-angle-down
+            #menu-categories.btn-menu-list.right
+              ul.list-categories(role='menu')
+                each category in categories
+                  li(role='menuitem')
+                    a(href='/'+store.slug+'/'+__('categorias')+'/'+category.slugLong) #{category.name}
+  nav#mobile-menu.sidenav
+    .sidenav-body
+      .title #{__('Cuenta')}
+      ul.nologin(role='menu')
+        li(role='menuitem')
+          a(href='/') Iniciar Sesión
+
+      ul.login(role='menu')
+        li(role='menuitem')
+          a(href='/perfil')
+            i.far.fa-address-card
+            | &nbsp;Perfil
+        li(role='menuitem')
+          a(href='/pedidos')
+            i.fas.fa-shopping-bag
+            | &nbsp;Pedidos
+        li(role='menuitem')
+          a(href='/cerrar-sesion')
+            i.fas.fa-sign-out-alt
+            | &nbsp;Cerrar Sesión
+
+      .title #{__('Categorías')}
+      ul(role='menu')
+        each category in categories
+          li(role='menuitem')
+            a(href='/'+store.slug+'/'+__('categorias')+'/'+category.slugLong) #{category.name}
+

@@ -1,0 +1,18 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      .col-xs-12
+        nav.breadcrumb.ph-3.small.uppercase
+          a.b.item(href=`/`) INICIO
+          a.b.item(href=`/`) EVENTOS
+          a.b.item.name-link
+
+  .container
+    h1.name
+    .hr.mb-5.mt-2
+    .row.justify-content-center
+      .col-xs-12.col-md-6.event-view
+
+  include ../../fragments/modal.pug

@@ -10,6 +10,9 @@ const enviroment = {
   },
   keySecret: process.env.KEY_SECRET || 'key12345678',
   log: process.env.LOG || 'dev',
+  site: {
+    name: 'Eventos'
+  }
 };
 
 if (enviroment.db.dialect === 'sqlite') {

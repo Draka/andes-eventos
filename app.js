@@ -8,15 +8,23 @@ const path = require('path');
 const morgan = require('morgan');
 const compression = require('compression');
 const { UniqueConstraintError, Sequelize } = require('sequelize');
+const rimraf = require('rimraf');
 const {
   crossdomain,
   auth
 } = require('./libs');
 
+// elimina el temp
+rimraf.sync('./tmp');
+
+const tsMiddleware = require('./libs/ts_middleware.lib');
+const jsMiddleware = require('./libs/js_middleware.lib');
+
 // DB
 global.sequelize = new Sequelize(config.db);
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
+  tsMiddleware();
 }, (err) => {
   console.error('Unable to connect to the database:', err);
 });
@@ -36,6 +44,13 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(crossdomain);
+app.use(jsMiddleware({
+  src: path.join(__dirname, 'public'),
+  tmp: 'tmp',
+  js: 'sources',
+  sourceMap: true,
+  debug: true,
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(auth);
 

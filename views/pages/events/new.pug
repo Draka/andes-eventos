@@ -1,0 +1,70 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      .col-xs-12
+        nav.breadcrumb.ph-3.small.uppercase
+          a.b.item(href=`/`) INICIO
+          a.b.item(href=`/`) EVENTOS
+          a.b.item(href=`/nuevo-evento`) NUEVO
+
+  .container
+    h1 Crear nuevo evento
+    .hr.mb-5.mt-2
+    .row.justify-content-center
+      .col-xs-12.col-md-6
+        .white.br-10.rd-0-2.shadow
+          .p-3
+            .msg.error#form-results
+            .row
+              form.col-xs-12.validate-rest(id="newEvent" action=`/api/events/` method="post" data-page=`/` data-error="#form-results")
+                .row
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#event_name(type="text" name="event_name" placeholder=' ' required)
+                        label(for='event_name') Nombre
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        select#event_category(name="event_category")
+                          option(value="COURSE") Curso
+                          option(value="CONFERENCE") Conferencia
+                          option(value="SEMINAR") Seminario
+                          option(value="CONGRESS") Congreso
+                        label(for='event_category') Categoría
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#event_place(type="text" name="event_place" placeholder=' ' required)
+                        label(for='event_place') Lugar
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#event_address(type="text" name="event_address" placeholder=' ' required)
+                        label(for='event_address') Dirección
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#event_initial_date(type="text" name="event_initial_date" placeholder='aaaa-mm-dd hh:mm' required)
+                        label(for='event_initial_date') Hora Inicio
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#event_final_date(type="text" name="event_final_date" placeholder='aaaa-mm-dd hh:mm' required)
+                        label(for='event_final_date') Hora Fin
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        select#event_type(name="event_type")
+                          option(value="VIRTUAL") Virtual
+                        label(for='event_type') Tipo
+                  .col-xs-12
+                    .form-group
+                      .form-control
+                        input#thumbnail(type="text" name="thumbnail" placeholder=' ' required)
+                        label(for='thumbnail') URL imagen
+                .row
+                  .col-xs-12.tr
+                    button.primary.w-100-xs(type="submit") Agregar evento
